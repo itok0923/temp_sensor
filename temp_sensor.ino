@@ -10,23 +10,20 @@
 #define sensor_pin PA0
 
 LCDSet lcd=LCDSet(LCD_ADR,LCD_ROW,LCD_COL);
-char ini[] = "Initialized!";
+
 void setup() {
     lcd.reset(LCD_RES);
     Wire.setSDA(LCD_SDA);
     Wire.setSCL(LCD_SCL);
     Wire.begin();
     lcd.initialize();
-    lcd.writeChar(ini);
-    delay(5000);
-    lcd.clear();
 }
 void loop() {
     lcd.cursor_set(0,0);
     mesure_Temperature();
     lcd.cursor_set(6,0);
     degc();
-    delay(2000);
+    delay(1000);
 }
 //温度計測値取得
 void mesure_Temperature(){

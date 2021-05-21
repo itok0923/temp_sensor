@@ -4,4 +4,5 @@
     "board": "STMicroelectronics:stm32:Nucleo_64",
     "output": "../ArduinoOutput",
     "sketch": "temp_sensor.ino"
+    
 }

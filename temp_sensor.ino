@@ -30,6 +30,7 @@ void loop() {
 }
 //温度計測値取得
 void mesure_Temperature(){
+    //
     int sens_value;
     float temp_value;
     char fl2ch[5];

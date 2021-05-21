@@ -9,51 +9,37 @@
 #define LCD_COL 2
 #define sensor_pin PA0
 
-int p=0;
-char moji[]="XYZ";
-
 LCDSet lcd=LCDSet(LCD_ADR,LCD_ROW,LCD_COL);
+char ini[] = "Initialized!";
 void setup() {
-    attachInterrupt(digitalPinToInterrupt(PC13),push,FALLING);
-    Serial.begin(115200);
-    lcd.LCD_reset(LCD_RES);
+    lcd.reset(LCD_RES);
     Wire.setSDA(LCD_SDA);
     Wire.setSCL(LCD_SCL);
     Wire.begin();
-    lcd.LCD_initialize();
+    lcd.initialize();
+    lcd.writeChar(ini);
+    delay(5000);
+    lcd.clear();
 }
-
 void loop() {
-    if(p==0){
-        lcd.cursor_set(0,0);
-        mesure_Temperature();
-        lcd.cursor_set(6,0);
-        degc();
-    }
+    lcd.cursor_set(0,0);
+    mesure_Temperature();
+    lcd.cursor_set(6,0);
+    degc();
     delay(2000);
 }
+//温度計測値取得
 void mesure_Temperature(){
     int sens_value;
     float temp_value;
-    char d2c[5];
-
+    char fl2ch[5];
     sens_value = map(analogRead(sensor_pin),0,1023,0,3300);
     temp_value = (sens_value - 600)/10.0;    
-    dtostrf(temp_value,5,1,d2c);
-    for(int i=0;i<5;i++){
-        lcd.writeData(d2c[i]);
-    }
-    Serial.println(temp_value,1);
+    dtostrf(temp_value,5,1,fl2ch);
+    lcd.writeChar(fl2ch);
 }
+//℃表示
 void degc(){
     lcd.writeData(0xF2);
     lcd.writeData(0x43);
-}
-void push(){
-    if(p==0){
-        p=1;
-    }else{
-        p=0;
-    }
-    delay(500);
 }

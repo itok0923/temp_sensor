@@ -70,11 +70,13 @@ void LCDSet::clear(){
     writeCommand(0x01);
     delay(1);
 }
+//LCD ON
 void LCDSet::on(){
     function_set(0);
     writeCommand(0x0C);
     delay(1);    
 }
+//LCD OFF
 void LCDSet::off(){
     function_set(0);
     writeCommand(0x08);
